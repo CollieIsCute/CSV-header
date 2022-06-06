@@ -1,8 +1,11 @@
 #include "csv.h"
 
 CSVReader::CSVReader(const std::string filename) : fin(filename) {
-	while(!fin.eof())
-		table.push_back(getParsedLine());
+	while(fin.peek() && !fin.eof()){
+		std::vector<std::string> temp(getParsedLine());
+		if(temp.size())
+			table.push_back(temp);
+	}
 }
 
 std::vector<std::string> CSVReader::getParsedLine() {
